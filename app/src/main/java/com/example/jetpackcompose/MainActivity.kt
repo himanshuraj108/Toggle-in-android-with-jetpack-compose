@@ -3,10 +3,12 @@ package com.example.jetpackcompose
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.material3.Slider
 import androidx.compose.material3.Switch
 import androidx.compose.material3.SwitchDefaults
 import androidx.compose.material3.Text
@@ -30,35 +32,52 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+//@Composable
+//fun BasicSwitchExample() {
+//    var isChecked by remember { mutableStateOf(false) }
+//
+//    Row(
+//        verticalAlignment = Alignment.CenterVertically,
+//        modifier = Modifier.padding(16.dp)
+//    ) {
+//        Text(text = if (isChecked) "ON" else "OFF",
+//            color = if(isChecked) Color.Blue else Color.Red
+//            )
+//        Spacer(modifier = Modifier.width(8.dp))
+//
+//        Switch(
+//            checked = isChecked,
+//            onCheckedChange = { isChecked = it },
+//            colors = SwitchDefaults.colors(
+//                checkedThumbColor = if(isChecked) Color.Blue else Color.Red,
+//                checkedTrackColor = Color(0xFFCB1616),
+//                uncheckedThumbColor = Color.Red,
+//                uncheckedTrackColor = if(isChecked) Color.Blue else Color.Red
+//
+//            )
+//        )
+//    }
+//}
+
+
 @Composable
-fun BasicSwitchExample() {
-    var isChecked by remember { mutableStateOf(false) }
+fun SliderExample(){
+    var sliderValue by remember { mutableStateOf(0f) }
 
-    Row(
-        verticalAlignment = Alignment.CenterVertically,
-        modifier = Modifier.padding(16.dp)
-    ) {
-        Text(text = if (isChecked) "ON" else "OFF",
-            color = if(isChecked) Color.Blue else Color.Red
-            )
-        Spacer(modifier = Modifier.width(8.dp))
+    Column(modifier = Modifier.padding(16.dp)) {
+        Text("Value ${sliderValue.toInt()}")
 
-        Switch(
-            checked = isChecked,
-            onCheckedChange = { isChecked = it },
-            colors = SwitchDefaults.colors(
-                checkedThumbColor = if(isChecked) Color.Blue else Color.Red,
-                checkedTrackColor = Color(0xFFCB1616),
-                uncheckedThumbColor = Color.Red,
-                uncheckedTrackColor = if(isChecked) Color.Blue else Color.Red
-
-            )
+        Slider(
+            value = sliderValue,
+            onValueChange = {sliderValue = it},
+            valueRange = 0f..100f
         )
     }
 }
 
+
 @Preview(showBackground = true)
 @Composable
 fun PreviewSwitch() {
-    BasicSwitchExample()
+    SliderExample()
 }
