@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Slider
+import androidx.compose.material3.SliderDefaults
 import androidx.compose.material3.Switch
 import androidx.compose.material3.SwitchDefaults
 import androidx.compose.material3.Text
@@ -69,8 +70,13 @@ fun SliderExample(){
 
         Slider(
             value = sliderValue,
-            onValueChange = {sliderValue = it},
-            valueRange = 0f..100f
+            onValueChange = { sliderValue = it },
+            valueRange = 0f..100f,
+            colors = SliderDefaults.colors(
+                thumbColor = Color.Red,
+                activeTrackColor = if(sliderValue < 50) Color.Red else Color.Blue,
+                inactiveTrackColor = Color.LightGray
+            )
         )
     }
 }
