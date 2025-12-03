@@ -6,8 +6,11 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Slider
 import androidx.compose.material3.SliderDefaults
 import androidx.compose.material3.Switch
@@ -59,31 +62,62 @@ class MainActivity : ComponentActivity() {
 //        )
 //    }
 //}
-
+//
+//
+//@Composable
+//fun SliderExample(){
+//    var sliderValue by remember { mutableStateOf(0f) }
+//
+//    Column(modifier = Modifier.padding(16.dp)) {
+//        Text("Value ${sliderValue.toInt()}")
+//
+//        Slider(
+//            value = sliderValue,
+//            onValueChange = { sliderValue = it },
+//            valueRange = 0f..100f,
+//            colors = SliderDefaults.colors(
+//                thumbColor = Color.Red,
+//                activeTrackColor = if(sliderValue < 50) Color.Red else Color.Blue,
+//                inactiveTrackColor = Color.LightGray
+//            )
+//        )
+//    }
+//}
 
 @Composable
-fun SliderExample(){
-    var sliderValue by remember { mutableStateOf(0f) }
+fun RadioButtonExample() {
+    var selectedOption by remember { mutableStateOf("Option 1") }
 
     Column(modifier = Modifier.padding(16.dp)) {
-        Text("Value ${sliderValue.toInt()}")
 
-        Slider(
-            value = sliderValue,
-            onValueChange = { sliderValue = it },
-            valueRange = 0f..100f,
-            colors = SliderDefaults.colors(
-                thumbColor = Color.Red,
-                activeTrackColor = if(sliderValue < 50) Color.Red else Color.Blue,
-                inactiveTrackColor = Color.LightGray
-            )
+        Text(
+            text = "Choose an option:",
+            style = MaterialTheme.typography.titleMedium
         )
-    }
-}
 
+        Spacer(modifier = Modifier.height(8.dp))
+
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            RadioButton(
+                selected = selectedOption == "Option 1",
+                onClick = { selectedOption = "Option 1" }
+            )
+            Text("Option 1")
+        }
+
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            RadioButton(
+                selected = selectedOption == "Option 2",
+                onClick = { selectedOption = "Option 2" }
+            )
+            Text("Option 2")
+        }
+    }
+
+}
 
 @Preview(showBackground = true)
 @Composable
 fun PreviewSwitch() {
-    SliderExample()
+    RadioButtonExample()
 }
