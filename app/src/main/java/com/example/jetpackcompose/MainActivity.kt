@@ -113,11 +113,32 @@ fun RadioButtonExample() {
             Text("Option 2")
         }
     }
+}
 
+@Composable
+fun RadioGroupExample(){
+    val options = listOf("Male","Female","Others")
+    var selectedOption by remember { mutableStateOf(options[0])}
+
+    Column( modifier = Modifier.padding(16.dp)
+    ) {
+        options.forEach { option ->
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                RadioButton(
+                    selected = (option == selectedOption),
+                    onClick = {selectedOption  = option}
+                )
+                Text(text = option, modifier = Modifier.padding(start = 8.dp))
+            }
+        }
+        Row(modifier = Modifier.padding(16.dp)) {
+            Text(text = "Your selected option is ${selectedOption}")
+        }
+    }
 }
 
 @Preview(showBackground = true)
 @Composable
 fun PreviewSwitch() {
-    RadioButtonExample()
+    RadioGroupExample()
 }
