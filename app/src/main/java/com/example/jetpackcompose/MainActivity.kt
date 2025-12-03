@@ -118,7 +118,7 @@ fun RadioButtonExample() {
 @Composable
 fun RadioGroupExample(){
     val options = listOf("Male","Female","Others")
-    var selectedOption by remember { mutableStateOf(options[0])}
+    var selectedOption by remember { mutableStateOf("")}
 
     Column( modifier = Modifier.padding(16.dp)
     ) {
@@ -131,8 +131,8 @@ fun RadioGroupExample(){
                 Text(text = option, modifier = Modifier.padding(start = 8.dp))
             }
         }
-        Row(modifier = Modifier.padding(16.dp)) {
-            Text(text = "Your selected option is ${selectedOption}")
+        Column (modifier = Modifier.padding(16.dp)) {
+            Text(text = "Your selected option: ${selectedOption}")
         }
     }
 }
