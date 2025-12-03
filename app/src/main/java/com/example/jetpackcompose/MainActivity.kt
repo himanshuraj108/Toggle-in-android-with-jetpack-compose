@@ -132,7 +132,9 @@ fun RadioGroupExample(){
             }
         }
         Column (modifier = Modifier.padding(16.dp)) {
-            Text(text = "Your selected option: ${selectedOption}")
+            Text(text = "Your selected option: ${selectedOption}",
+                color = Color.Blue
+                )
         }
     }
 }
