@@ -36,53 +36,53 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-//@Composable
-//fun BasicSwitchExample() {
-//    var isChecked by remember { mutableStateOf(false) }
-//
-//    Row(
-//        verticalAlignment = Alignment.CenterVertically,
-//        modifier = Modifier.padding(16.dp)
-//    ) {
-//        Text(text = if (isChecked) "ON" else "OFF",
-//            color = if(isChecked) Color.Blue else Color.Red
-//            )
-//        Spacer(modifier = Modifier.width(8.dp))
-//
-//        Switch(
-//            checked = isChecked,
-//            onCheckedChange = { isChecked = it },
-//            colors = SwitchDefaults.colors(
-//                checkedThumbColor = if(isChecked) Color.Blue else Color.Red,
-//                checkedTrackColor = Color(0xFFCB1616),
-//                uncheckedThumbColor = Color.Red,
-//                uncheckedTrackColor = if(isChecked) Color.Blue else Color.Red
-//
-//            )
-//        )
-//    }
-//}
-//
-//
-//@Composable
-//fun SliderExample(){
-//    var sliderValue by remember { mutableStateOf(0f) }
-//
-//    Column(modifier = Modifier.padding(16.dp)) {
-//        Text("Value ${sliderValue.toInt()}")
-//
-//        Slider(
-//            value = sliderValue,
-//            onValueChange = { sliderValue = it },
-//            valueRange = 0f..100f,
-//            colors = SliderDefaults.colors(
-//                thumbColor = Color.Red,
-//                activeTrackColor = if(sliderValue < 50) Color.Red else Color.Blue,
-//                inactiveTrackColor = Color.LightGray
-//            )
-//        )
-//    }
-//}
+@Composable
+fun BasicSwitchExample() {
+    var isChecked by remember { mutableStateOf(false) }
+
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = Modifier.padding(16.dp)
+    ) {
+        Text(text = if (isChecked) "ON" else "OFF",
+            color = if(isChecked) Color.Blue else Color.Red
+            )
+        Spacer(modifier = Modifier.width(8.dp))
+
+        Switch(
+            checked = isChecked,
+            onCheckedChange = { isChecked = it },
+            colors = SwitchDefaults.colors(
+                checkedThumbColor = if(isChecked) Color.Blue else Color.Red,
+                checkedTrackColor = Color(0xFFCB1616),
+                uncheckedThumbColor = Color.Red,
+                uncheckedTrackColor = if(isChecked) Color.Blue else Color.Red
+
+            )
+        )
+    }
+}
+
+
+@Composable
+fun SliderExample(){
+    var sliderValue by remember { mutableStateOf(0f) }
+
+    Column(modifier = Modifier.padding(16.dp)) {
+        Text("Value ${sliderValue.toInt()}")
+
+        Slider(
+            value = sliderValue,
+            onValueChange = { sliderValue = it },
+            valueRange = 0f..100f,
+            colors = SliderDefaults.colors(
+                thumbColor = Color.Red,
+                activeTrackColor = if(sliderValue < 50) Color.Red else Color.Blue,
+                inactiveTrackColor = Color.LightGray
+            )
+        )
+    }
+}
 
 @Composable
 fun RadioButtonExample() {
@@ -132,12 +132,14 @@ fun RadioGroupExample(){
             }
         }
         Column (modifier = Modifier.padding(16.dp)) {
-            Text(text = "Your selected option: ${selectedOption}",
+            Text(text = "Your selected option: $selectedOption",
                 color = Color.Blue
                 )
         }
     }
 }
+
+
 
 @Preview(showBackground = true)
 @Composable
