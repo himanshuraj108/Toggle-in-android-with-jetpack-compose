@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.material3.Checkbox
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Slider
@@ -139,10 +140,26 @@ fun RadioGroupExample(){
     }
 }
 
+@Composable
+fun ClickableLabelCheckBox(){
+    var checked by remember { mutableStateOf(false) }
+    Column(
+        modifier = Modifier.padding(30.dp)
+    ) { Row(
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Checkbox(
+            checked = checked,
+            onCheckedChange = {checked = it}
+        )
+        Text(text="Accept Terms", modifier = Modifier.padding(start = 3.dp))
+    }}
+
+}
 
 
 @Preview(showBackground = true)
 @Composable
 fun PreviewSwitch() {
-    RadioGroupExample()
+    ClickableLabelCheckBox()
 }
