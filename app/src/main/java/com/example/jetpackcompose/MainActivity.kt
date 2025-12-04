@@ -21,6 +21,7 @@ import androidx.compose.material3.SwitchDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateMapOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -212,9 +213,34 @@ fun MultipleCheckBoxExample(){
     }
 }
 
+@Composable
+fun MultipleCheckBox(){
+    val options = listOf("Java","Kotlin","Python")
+    val checkStates = remember { mutableStateMapOf<String, Boolean>() }
+
+    options.forEach { option ->
+        if(!checkStates.containsKey(option)) checkStates[option] = false
+    }
+
+    Column(
+        modifier = Modifier.padding(16.dp)
+    ) {
+        options.forEach { option->
+            Row(
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Checkbox(
+                    checked = checkStates[option] == true,
+                    onCheckedChange = {checkStates[option] = it}
+                )
+            }
+        }
+    }
+}
+
 
 @Preview(showBackground = true)
 @Composable
 fun PreviewSwitch() {
-    MultipleCheckBoxExample()
+    MultipleCheckBox()
 }
