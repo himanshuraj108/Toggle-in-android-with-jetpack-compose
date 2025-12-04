@@ -233,6 +233,7 @@ fun MultipleCheckBox(){
                     checked = checkStates[option] == true,
                     onCheckedChange = {checkStates[option] = it}
                 )
+                Text(text = option,Modifier.padding(start = 8.dp))
             }
         }
     }
