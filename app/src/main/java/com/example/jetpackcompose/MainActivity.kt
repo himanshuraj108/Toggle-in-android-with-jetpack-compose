@@ -1,6 +1,7 @@
 package com.example.jetpackcompose
 
 import android.os.Bundle
+import android.util.Log.i
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Column
@@ -9,6 +10,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.material3.Button
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.RadioButton
@@ -153,13 +155,66 @@ fun ClickableLabelCheckBox(){
             onCheckedChange = {checked = it}
         )
         Text(text="Accept Terms", modifier = Modifier.padding(start = 3.dp))
-    }}
+    }
+        Row(
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            if(checked){
+                Text(text = "Terms accepted successfully by user")
+            }
+        }
+    }
 
+}
+
+@Composable
+fun MultipleCheckBoxExample(){
+    var java by remember { mutableStateOf(false) }
+    var kotlin by remember { mutableStateOf(false) }
+    var python by remember { mutableStateOf(false) }
+
+    Column(
+        modifier = Modifier.padding(16.dp)
+    ) {
+        Row(
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Checkbox(
+                checked = java,
+                onCheckedChange = {java = it}
+            )
+            Text(text = "Java", modifier = Modifier.padding(start = 8.dp))
+        }
+        Row(
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Checkbox(
+                checked = kotlin,
+                onCheckedChange = {kotlin = it}
+            )
+            Text(text = "Kotlin", modifier = Modifier.padding(start = 8.dp))
+        }
+        Row(
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Checkbox(
+                checked = python,
+                onCheckedChange = {python = it}
+            )
+            Text(text = "Python", modifier = Modifier.padding(start = 8.dp))
+        }
+
+//        if(java) Text(text = "Your selected option is Java")
+//        else if(kotlin) Text(text = "Your selected option is Kotlin")
+//        else if (python)Text(text = "Your selected option is Python")
+//        else Text(text = "Your selected option is ")
+
+    }
 }
 
 
 @Preview(showBackground = true)
 @Composable
 fun PreviewSwitch() {
-    ClickableLabelCheckBox()
+    MultipleCheckBoxExample()
 }
