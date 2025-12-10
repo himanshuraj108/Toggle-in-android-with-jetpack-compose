@@ -1,5 +1,7 @@
 package com.example.jetpackcompose
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log.i
 import androidx.activity.ComponentActivity
@@ -28,6 +30,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
@@ -239,9 +242,56 @@ fun MultipleCheckBox(){
     }
 }
 
+@Composable
+fun ImplicitIntentScreen() {
+
+    val context = LocalContext.current
+
+    Column(
+        modifier = Modifier.padding(20.dp)
+    ) {
+        Button(
+            onClick = {
+                val intent = Intent(Intent.ACTION_DIAL).apply {
+                    data = Uri.parse("tel:9845624694")
+                }
+                context.startActivity(intent)
+            }
+        ) {
+            Text("Dial Number")
+        }
+
+        Spacer(modifier = Modifier.height(20.dp))
+        Button(
+            onClick = {
+                val intent = Intent(Intent.ACTION_SENDTO).apply {
+                    data = Uri.parse("smsto:4644687867684")
+                    putExtra("sms_body", "This is the message")
+                }
+                context.startActivity(intent)
+            }
+        ) {
+            Text("Send Message (SMS)")
+        }
+
+        Spacer(modifier = Modifier.height(20.dp))
+
+        Button(
+            onClick = {
+                val intent = Intent(Intent.ACTION_PICK).apply {
+                    type = "image/*"
+                }
+                context.startActivity(intent)
+            }
+        ) {
+            Text("Pick Image")
+        }
+    }
+}
+
 
 @Preview(showBackground = true)
 @Composable
 fun PreviewSwitch() {
-    MultipleCheckBox()
+    ImplicitIntentScreen()
 }
