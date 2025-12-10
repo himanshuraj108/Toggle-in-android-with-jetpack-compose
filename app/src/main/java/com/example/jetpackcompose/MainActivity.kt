@@ -1,6 +1,7 @@
 package com.example.jetpackcompose
 
 import android.content.Intent
+import android.provider.MediaStore
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log.i
@@ -33,6 +34,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -312,6 +314,13 @@ fun ImplicitIntentScreen() {
         ) {
             Text("Send Text")
         }
+        Spacer(modifier = Modifier.height(20.dp))
+        Button(
+            onClick = {
+                val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+                context.startActivity(intent)
+            }
+        ) { Text("Open Camera") }
     }
 }
 
