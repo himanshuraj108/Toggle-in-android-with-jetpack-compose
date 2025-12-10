@@ -294,7 +294,7 @@ fun ImplicitIntentScreen() {
                 val intent = Intent(Intent.ACTION_SENDTO).apply {
                     data = Uri.parse("mailto:test@example.com")
                     putExtra(Intent.EXTRA_SUBJECT, "Test Email")
-                    putExtra(Intent.EXTRA_TEXT,"This is a test mail")
+                    putExtra(Intent.EXTRA_TEXT, "This is a test mail")
                 }
                 context.startActivity(intent)
             }
@@ -306,8 +306,8 @@ fun ImplicitIntentScreen() {
         Button(
             onClick = {
                 val intent = Intent(Intent.ACTION_SEND).apply {
-                    type="text/plain"
-                    putExtra(Intent.EXTRA_TEXT,"Sharing Text")
+                    type = "text/plain"
+                    putExtra(Intent.EXTRA_TEXT, "Sharing Text")
                 }
                 context.startActivity(intent)
             }
@@ -321,9 +321,17 @@ fun ImplicitIntentScreen() {
                 context.startActivity(intent)
             }
         ) { Text("Open Camera") }
+        Spacer(modifier = Modifier.height(20.dp))
+        Button(
+            onClick = {
+                val intent = Intent(Intent.ACTION_GET_CONTENT).apply {
+                    type = "document/pdf"
+                }
+                context.startActivity(intent)
+            }
+        ) { Text("Open Document") }
     }
-}
-
+    }
 
 
 @Preview(showBackground = true)
