@@ -286,8 +286,23 @@ fun ImplicitIntentScreen() {
         ) {
             Text("Pick Image")
         }
+        Spacer(modifier = Modifier.height(20.dp))
+        Button(
+            onClick = {
+                val intent = Intent(Intent.ACTION_SENDTO).apply {
+                    data = Uri.parse("mailto:test@example.com")
+                    putExtra(Intent.EXTRA_SUBJECT, "Test Email")
+                    putExtra(Intent.EXTRA_TEXT,"This is a test mail")
+                }
+                context.startActivity(intent)
+            }
+        ) {
+            Text("Send Email")
+        }
+        Spacer(modifier = Modifier.height(20.dp))
     }
 }
+
 
 
 @Preview(showBackground = true)
