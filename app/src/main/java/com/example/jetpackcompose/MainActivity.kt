@@ -300,6 +300,18 @@ fun ImplicitIntentScreen() {
             Text("Send Email")
         }
         Spacer(modifier = Modifier.height(20.dp))
+
+        Button(
+            onClick = {
+                val intent = Intent(Intent.ACTION_SEND).apply {
+                    type="text/plain"
+                    putExtra(Intent.EXTRA_TEXT,"Sharing Text")
+                }
+                context.startActivity(intent)
+            }
+        ) {
+            Text("Send Text")
+        }
     }
 }
 
