@@ -1,9 +1,7 @@
 package com.example.jetpackcompose
 
-import android.content.Intent
 import android.os.Bundle
-import android.provider.MediaStore
-import android.net.Uri
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.*
@@ -61,6 +59,7 @@ fun AppNavigation() {
 @Composable
 fun HomeScreen(navController: NavController) {
     var name by remember { mutableStateOf("") }
+    val context = LocalContext.current
 
     Column(
         modifier = Modifier
@@ -85,6 +84,9 @@ fun HomeScreen(navController: NavController) {
         Button(onClick = {
             if (name.isNotBlank()) {
                 navController.navigate("detail/$name")
+            }
+            if(name.isBlank()){
+                Toast.makeText(context,"name is required", Toast.LENGTH_LONG).show()
             }
         }) {
             Text("Go to Detail")
