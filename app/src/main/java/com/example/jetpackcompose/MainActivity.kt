@@ -1,5 +1,6 @@
 package com.example.jetpackcompose
 
+import android.content.Context
 import android.content.Intent
 import android.provider.MediaStore
 import android.net.Uri
@@ -7,9 +8,12 @@ import android.os.Bundle
 import android.util.Log.i
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -22,6 +26,7 @@ import androidx.compose.material3.SliderDefaults
 import androidx.compose.material3.Switch
 import androidx.compose.material3.SwitchDefaults
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateMapOf
@@ -34,6 +39,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
+import androidx.navigation.NavType
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
+import kotlin.jvm.java
 
 
 class MainActivity : ComponentActivity() {
@@ -53,19 +65,20 @@ fun BasicSwitchExample() {
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier.padding(16.dp)
     ) {
-        Text(text = if (isChecked) "ON" else "OFF",
-            color = if(isChecked) Color.Blue else Color.Red
-            )
+        Text(
+            text = if (isChecked) "ON" else "OFF",
+            color = if (isChecked) Color.Blue else Color.Red
+        )
         Spacer(modifier = Modifier.width(8.dp))
 
         Switch(
             checked = isChecked,
             onCheckedChange = { isChecked = it },
             colors = SwitchDefaults.colors(
-                checkedThumbColor = if(isChecked) Color.Blue else Color.Red,
+                checkedThumbColor = if (isChecked) Color.Blue else Color.Red,
                 checkedTrackColor = Color(0xFFCB1616),
                 uncheckedThumbColor = Color.Red,
-                uncheckedTrackColor = if(isChecked) Color.Blue else Color.Red
+                uncheckedTrackColor = if (isChecked) Color.Blue else Color.Red
 
             )
         )
@@ -74,7 +87,7 @@ fun BasicSwitchExample() {
 
 
 @Composable
-fun SliderExample(){
+fun SliderExample() {
     var sliderValue by remember { mutableStateOf(0f) }
 
     Column(modifier = Modifier.padding(16.dp)) {
@@ -86,7 +99,7 @@ fun SliderExample(){
             valueRange = 0f..100f,
             colors = SliderDefaults.colors(
                 thumbColor = Color.Red,
-                activeTrackColor = if(sliderValue < 50) Color.Red else Color.Blue,
+                activeTrackColor = if (sliderValue < 50) Color.Red else Color.Blue,
                 inactiveTrackColor = Color.LightGray
             )
         )
@@ -125,47 +138,50 @@ fun RadioButtonExample() {
 }
 
 @Composable
-fun RadioGroupExample(){
-    val options = listOf("Male","Female","Others")
-    var selectedOption by remember { mutableStateOf("")}
+fun RadioGroupExample() {
+    val options = listOf("Male", "Female", "Others")
+    var selectedOption by remember { mutableStateOf("") }
 
-    Column( modifier = Modifier.padding(16.dp)
+    Column(
+        modifier = Modifier.padding(16.dp)
     ) {
         options.forEach { option ->
             Row(verticalAlignment = Alignment.CenterVertically) {
                 RadioButton(
                     selected = (option == selectedOption),
-                    onClick = {selectedOption  = option}
+                    onClick = { selectedOption = option }
                 )
                 Text(text = option, modifier = Modifier.padding(start = 8.dp))
             }
         }
-        Column (modifier = Modifier.padding(16.dp)) {
-            Text(text = "Your selected option: $selectedOption",
+        Column(modifier = Modifier.padding(16.dp)) {
+            Text(
+                text = "Your selected option: $selectedOption",
                 color = Color.Blue
-                )
+            )
         }
     }
 }
 
 @Composable
-fun ClickableLabelCheckBox(){
+fun ClickableLabelCheckBox() {
     var checked by remember { mutableStateOf(false) }
     Column(
         modifier = Modifier.padding(30.dp)
-    ) { Row(
-        verticalAlignment = Alignment.CenterVertically
     ) {
-        Checkbox(
-            checked = checked,
-            onCheckedChange = {checked = it}
-        )
-        Text(text="Accept Terms", modifier = Modifier.padding(start = 3.dp))
-    }
         Row(
             verticalAlignment = Alignment.CenterVertically
         ) {
-            if(checked){
+            Checkbox(
+                checked = checked,
+                onCheckedChange = { checked = it }
+            )
+            Text(text = "Accept Terms", modifier = Modifier.padding(start = 3.dp))
+        }
+        Row(
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            if (checked) {
                 Text(text = "Terms accepted successfully by user")
             }
         }
@@ -174,7 +190,7 @@ fun ClickableLabelCheckBox(){
 }
 
 @Composable
-fun MultipleCheckBoxExample(){
+fun MultipleCheckBoxExample() {
     var java by remember { mutableStateOf(false) }
     var kotlin by remember { mutableStateOf(false) }
     var python by remember { mutableStateOf(false) }
@@ -187,7 +203,7 @@ fun MultipleCheckBoxExample(){
         ) {
             Checkbox(
                 checked = java,
-                onCheckedChange = {java = it}
+                onCheckedChange = { java = it }
             )
             Text(text = "Java", modifier = Modifier.padding(start = 8.dp))
         }
@@ -196,7 +212,7 @@ fun MultipleCheckBoxExample(){
         ) {
             Checkbox(
                 checked = kotlin,
-                onCheckedChange = {kotlin = it}
+                onCheckedChange = { kotlin = it }
             )
             Text(text = "Kotlin", modifier = Modifier.padding(start = 8.dp))
         }
@@ -205,7 +221,7 @@ fun MultipleCheckBoxExample(){
         ) {
             Checkbox(
                 checked = python,
-                onCheckedChange = {python = it}
+                onCheckedChange = { python = it }
             )
             Text(text = "Python", modifier = Modifier.padding(start = 8.dp))
         }
@@ -219,26 +235,26 @@ fun MultipleCheckBoxExample(){
 }
 
 @Composable
-fun MultipleCheckBox(){
-    val options = listOf("Java","Kotlin","Python")
+fun MultipleCheckBox() {
+    val options = listOf("Java", "Kotlin", "Python")
     val checkStates = remember { mutableStateMapOf<String, Boolean>() }
 
     options.forEach { option ->
-        if(!checkStates.containsKey(option)) checkStates[option] = false
+        if (!checkStates.containsKey(option)) checkStates[option] = false
     }
 
     Column(
         modifier = Modifier.padding(16.dp)
     ) {
-        options.forEach { option->
+        options.forEach { option ->
             Row(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Checkbox(
                     checked = checkStates[option] == true,
-                    onCheckedChange = {checkStates[option] = it}
+                    onCheckedChange = { checkStates[option] = it }
                 )
-                Text(text = option,Modifier.padding(start = 8.dp))
+                Text(text = option, Modifier.padding(start = 8.dp))
             }
         }
     }
@@ -331,11 +347,53 @@ fun ImplicitIntentScreen() {
             }
         ) { Text("Open Document") }
     }
+}
+
+@Composable
+fun SendDataScreen() {
+    val context = LocalContext.current;
+    var name by remember { mutableStateOf("") }
+    var email by remember { mutableStateOf("") }
+
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(20.dp),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        TextField(
+            value = name,
+            onValueChange = { name = it },
+            label = { Text("Enter Name") }
+        )
+        Spacer(Modifier.height(15.dp))
+        TextField(
+            value = email,
+            onValueChange = { email = it },
+            label = { Text("Enter Email") }
+        )
+        Spacer(Modifier.height(25.dp))
+        Button(
+            onClick = {
+                val intent = Intent(
+                    context,
+                    ExplicitExTwo::class.java
+                ).apply {
+                    putExtra("name_key", name)
+                    putExtra("email_key", email)
+                }
+                context.startActivity(intent)
+            }
+        ) {
+            Text("Send to Next Activity")
+        }
     }
+}
 
 
 @Preview(showBackground = true)
 @Composable
 fun PreviewSwitch() {
-    ImplicitIntentScreen()
+    SendDataScreen()
 }
