@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">JetpackCompose</string>
+    <string name="title_activity_main2">MainActivity2</string>
+    <string name="welcome">स्वागत है</string>
+    <string name="login">लॉगिन</string>
+    <string name="hello_user">नमस्ते, %s</string>
+
+    <plurals name="item_count">
+        <item quantity="one">%d वस्तु</item>
+        <item quantity="other">%d वस्तुएँ</item>
+    </plurals>
+</resources>

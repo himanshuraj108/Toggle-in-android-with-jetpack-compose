@@ -1,12 +1,9 @@
 package com.example.jetpackcompose
 
-import android.annotation.SuppressLint
 import android.widget.Toast
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
@@ -38,50 +35,38 @@ import androidx.compose.ui.tooling.preview.Preview
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 @Preview(showSystemUi = true)
-fun ScaffoldScreen(modifier: Modifier = Modifier) {
+fun ScaffoldScreen() {
     val context = LocalContext.current
 
     Scaffold(
         topBar = {
-            TopAppBar(
-                title = {
-                    Text(text = "Scaffold Screen")
-                },
-                navigationIcon = {
-                    IconButton(
-                        onClick = {
-                            Toast.makeText(
-                                context,
-                                "Back clicked",
-                                Toast.LENGTH_SHORT
-                            ).show()
-                        }
-                    ) {
-                        Icon(
-                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = "Back"
-                        )
-                    }
-                },
-                actions = {
-                    IconButton(
-                        onClick = {
-                            Toast.makeText(
-                                context,
-                                "Menu clicked",
-                                Toast.LENGTH_SHORT
-                            ).show()
-                        }
-                    ) {
-                        Icon(
-                            imageVector = Icons.Filled.MoreVert,
-                            contentDescription = "Menu"
-                        )
-                    }
+            TopAppBar(title = {
+                Text(text = "Scaffold Screen")
+            }, navigationIcon = {
+                IconButton(
+                    onClick = {
+                        Toast.makeText(
+                            context, "Back clicked", Toast.LENGTH_SHORT
+                        ).show()
+                    }) {
+                    Icon(
+                        imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                        contentDescription = "Back"
+                    )
                 }
-            )
-        }
-    ) { paddingValues ->
+            }, actions = {
+                IconButton(
+                    onClick = {
+                        Toast.makeText(
+                            context, "Menu clicked", Toast.LENGTH_SHORT
+                        ).show()
+                    }) {
+                    Icon(
+                        imageVector = Icons.Filled.MoreVert, contentDescription = "Menu"
+                    )
+                }
+            })
+        }) { paddingValues ->
         Column(
             modifier = Modifier
                 .padding(paddingValues)
@@ -116,7 +101,7 @@ fun ButtomNavScaffold() {
                     selected = selectedIndex == 1,
                     onClick = { selectedIndex = 1 },
                     icon = { Icon(Icons.Filled.Search, contentDescription = "Search") },
-                    label = { Text("Home") },
+                    label = { Text("Search") },
                     colors = NavigationBarItemDefaults.colors(
                         selectedIconColor = Color.Red,
                         unselectedIconColor = Color.Gray,
@@ -128,7 +113,7 @@ fun ButtomNavScaffold() {
                     selected = selectedIndex == 2,
                     onClick = { selectedIndex = 2 },
                     icon = { Icon(Icons.Filled.Favorite, contentDescription = "Fav") },
-                    label = { Text("Home") },
+                    label = { Text("Favorites") },
                     colors = NavigationBarItemDefaults.colors(
                         selectedIconColor = Color.Red,
                         unselectedIconColor = Color.Gray,
@@ -140,7 +125,7 @@ fun ButtomNavScaffold() {
                     selected = selectedIndex == 3,
                     onClick = { selectedIndex = 3 },
                     icon = { Icon(Icons.Filled.Person, contentDescription = "Person") },
-                    label = { Text("Home") },
+                    label = { Text("Profile") },
                     colors = NavigationBarItemDefaults.colors(
                         selectedIconColor = Color.Red,
                         unselectedIconColor = Color.Gray,
@@ -149,15 +134,12 @@ fun ButtomNavScaffold() {
                     )
                 )
             }
-        }
-    ) { padding ->
+        }) { padding ->
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(padding),
-            contentAlignment = Alignment.Center
+                .padding(padding), contentAlignment = Alignment.Center
         ) {
-
             when (selectedIndex) {
                 0 -> Text("Home Screen")
                 1 -> Text("Search Screen")
@@ -168,4 +150,6 @@ fun ButtomNavScaffold() {
         }
     }
 }
+
+
 
